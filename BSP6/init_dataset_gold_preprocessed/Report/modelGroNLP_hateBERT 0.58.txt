@@ -1,0 +1,311 @@
+modelGroNLP/hateBERTdataset: /content/drive/MyDrive/BSP6/init_dataset_gold_preprocessed
+structure of the model: 
+BertForSequenceClassification(
+  (bert): BertModel(
+    (embeddings): BertEmbeddings(
+      (word_embeddings): Embedding(30522, 768, padding_idx=0)
+      (position_embeddings): Embedding(512, 768)
+      (token_type_embeddings): Embedding(2, 768)
+      (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): BertEncoder(
+      (layer): ModuleList(
+        (0-11): 12 x BertLayer(
+          (attention): BertAttention(
+            (self): BertSelfAttention(
+              (query): Linear(in_features=768, out_features=768, bias=True)
+              (key): Linear(in_features=768, out_features=768, bias=True)
+              (value): Linear(in_features=768, out_features=768, bias=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (output): BertSelfOutput(
+              (dense): Linear(in_features=768, out_features=768, bias=True)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+          )
+          (intermediate): BertIntermediate(
+            (dense): Linear(in_features=768, out_features=3072, bias=True)
+            (intermediate_act_fn): GELUActivation()
+          )
+          (output): BertOutput(
+            (dense): Linear(in_features=3072, out_features=768, bias=True)
+            (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+            (dropout): Dropout(p=0.1, inplace=False)
+          )
+        )
+      )
+    )
+    (pooler): BertPooler(
+      (dense): Linear(in_features=768, out_features=768, bias=True)
+      (activation): Tanh()
+    )
+  )
+  (dropout): Dropout(p=0.1, inplace=False)
+  (classifier): Linear(in_features=768, out_features=3, bias=True)
+)
+Tokenizer max length train:225Tokenizer max length val:225Tokenizer max length test:225
+TrainingArguments(
+_n_gpu=1,
+adafactor=False,
+adam_beta1=0.9,
+adam_beta2=0.999,
+adam_epsilon=1e-08,
+auto_find_batch_size=False,
+bf16=False,
+bf16_full_eval=False,
+data_seed=None,
+dataloader_drop_last=False,
+dataloader_num_workers=0,
+dataloader_pin_memory=True,
+ddp_backend=None,
+ddp_bucket_cap_mb=None,
+ddp_find_unused_parameters=None,
+ddp_timeout=1800,
+debug=[],
+deepspeed=None,
+disable_tqdm=False,
+do_eval=True,
+do_predict=False,
+do_train=False,
+eval_accumulation_steps=None,
+eval_delay=0,
+eval_steps=50,
+evaluation_strategy=steps,
+fp16=False,
+fp16_backend=auto,
+fp16_full_eval=False,
+fp16_opt_level=O1,
+fsdp=[],
+fsdp_config={'fsdp_min_num_params': 0, 'xla': False, 'xla_fsdp_grad_ckpt': False},
+fsdp_min_num_params=0,
+fsdp_transformer_layer_cls_to_wrap=None,
+full_determinism=False,
+gradient_accumulation_steps=1,
+gradient_checkpointing=False,
+greater_is_better=False,
+group_by_length=False,
+half_precision_backend=auto,
+hub_model_id=None,
+hub_private_repo=False,
+hub_strategy=every_save,
+hub_token=<HUB_TOKEN>,
+ignore_data_skip=False,
+include_inputs_for_metrics=False,
+jit_mode_eval=False,
+label_names=None,
+label_smoothing_factor=0.0,
+learning_rate=2e-05,
+length_column_name=length,
+load_best_model_at_end=True,
+local_rank=0,
+log_level=passive,
+log_level_replica=warning,
+log_on_each_node=True,
+logging_dir=./results/runs/Jun10_20-01-46_a5b865564908,
+logging_first_step=False,
+logging_nan_inf_filter=True,
+logging_steps=50,
+logging_strategy=steps,
+lr_scheduler_type=linear,
+max_grad_norm=1.0,
+max_steps=-1,
+metric_for_best_model=loss,
+mp_parameters=,
+no_cuda=False,
+num_train_epochs=5,
+optim=adamw_hf,
+optim_args=None,
+output_dir=./results,
+overwrite_output_dir=True,
+past_index=-1,
+per_device_eval_batch_size=32,
+per_device_train_batch_size=32,
+prediction_loss_only=False,
+push_to_hub=False,
+push_to_hub_model_id=None,
+push_to_hub_organization=None,
+push_to_hub_token=<PUSH_TO_HUB_TOKEN>,
+ray_scope=last,
+remove_unused_columns=True,
+report_to=['tensorboard'],
+resume_from_checkpoint=None,
+run_name=./results,
+save_on_each_node=False,
+save_safetensors=False,
+save_steps=500,
+save_strategy=steps,
+save_total_limit=None,
+seed=42,
+sharded_ddp=[],
+skip_memory_metrics=True,
+tf32=None,
+torch_compile=False,
+torch_compile_backend=None,
+torch_compile_mode=None,
+torchdynamo=None,
+tpu_metrics_debug=False,
+tpu_num_cores=None,
+use_ipex=False,
+use_legacy_prediction_loop=False,
+use_mps_device=False,
+warmup_ratio=0.0,
+warmup_steps=0,
+weight_decay=0.1,
+xpu_backend=None,
+)
+Confusion Matrix
+[[  2 182  18]
+ [  2 343  11]
+ [  4 135  16]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.25      0.01      0.02       202
+     Neutral       0.52      0.96      0.68       356
+     Counter       0.36      0.10      0.16       155
+
+    accuracy                           0.51       713
+   macro avg       0.38      0.36      0.28       713
+weighted avg       0.41      0.51      0.38       713
+Confusion Matrix
+[[ 17 111  74]
+ [  6 283  67]
+ [  8  77  70]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.55      0.08      0.15       202
+     Neutral       0.60      0.79      0.68       356
+     Counter       0.33      0.45      0.38       155
+
+    accuracy                           0.52       713
+   macro avg       0.49      0.44      0.40       713
+weighted avg       0.53      0.52      0.47       713
+Confusion Matrix
+[[ 64  82  56]
+ [ 43 253  60]
+ [ 26  64  65]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.48      0.32      0.38       202
+     Neutral       0.63      0.71      0.67       356
+     Counter       0.36      0.42      0.39       155
+
+    accuracy                           0.54       713
+   macro avg       0.49      0.48      0.48       713
+weighted avg       0.53      0.54      0.53       713
+Confusion Matrix
+[[ 46  92  64]
+ [ 24 277  55]
+ [ 16  69  70]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.53      0.23      0.32       202
+     Neutral       0.63      0.78      0.70       356
+     Counter       0.37      0.45      0.41       155
+
+    accuracy                           0.55       713
+   macro avg       0.51      0.49      0.47       713
+weighted avg       0.55      0.55      0.53       713
+Confusion Matrix
+[[ 89  66  47]
+ [ 62 235  59]
+ [ 34  56  65]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.48      0.44      0.46       202
+     Neutral       0.66      0.66      0.66       356
+     Counter       0.38      0.42      0.40       155
+
+    accuracy                           0.55       713
+   macro avg       0.51      0.51      0.51       713
+weighted avg       0.55      0.55      0.55       713
+Confusion Matrix
+[[ 98  54  50]
+ [ 58 228  70]
+ [ 28  57  70]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.53      0.49      0.51       202
+     Neutral       0.67      0.64      0.66       356
+     Counter       0.37      0.45      0.41       155
+
+    accuracy                           0.56       713
+   macro avg       0.52      0.53      0.52       713
+weighted avg       0.57      0.56      0.56       713
+Confusion Matrix
+[[ 73  74  55]
+ [ 40 261  55]
+ [ 20  65  70]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.55      0.36      0.44       202
+     Neutral       0.65      0.73      0.69       356
+     Counter       0.39      0.45      0.42       155
+
+    accuracy                           0.57       713
+   macro avg       0.53      0.52      0.51       713
+weighted avg       0.57      0.57      0.56       713
+Confusion Matrix
+[[111  60  31]
+ [ 66 240  50]
+ [ 39  62  54]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.51      0.55      0.53       202
+     Neutral       0.66      0.67      0.67       356
+     Counter       0.40      0.35      0.37       155
+
+    accuracy                           0.57       713
+   macro avg       0.53      0.52      0.52       713
+weighted avg       0.56      0.57      0.57       713
+Confusion Matrix
+[[110  68  24]
+ [ 64 253  39]
+ [ 42  63  50]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.51      0.54      0.53       202
+     Neutral       0.66      0.71      0.68       356
+     Counter       0.44      0.32      0.37       155
+
+    accuracy                           0.58       713
+   macro avg       0.54      0.53      0.53       713
+weighted avg       0.57      0.58      0.57       713
+Confusion Matrix
+[[106  56  40]
+ [ 67 226  63]
+ [ 34  55  66]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.51      0.52      0.52       202
+     Neutral       0.67      0.63      0.65       356
+     Counter       0.39      0.43      0.41       155
+
+    accuracy                           0.56       713
+   macro avg       0.52      0.53      0.53       713
+weighted avg       0.56      0.56      0.56       713
+[{'loss': 1.0416, 'learning_rate': 1.807692307692308e-05, 'epoch': 0.48, 'step': 50}, {'eval_loss': 1.005675196647644, 'eval_accuracy': 0.5063113604488079, 'eval_precision': 0.407606216442121, 'eval_recall': 0.5063113604488079, 'eval_f1': 0.37730392396602597, 'eval_runtime': 10.1134, 'eval_samples_per_second': 70.501, 'eval_steps_per_second': 2.274, 'epoch': 0.48, 'step': 50}, {'loss': 0.9842, 'learning_rate': 1.6153846153846154e-05, 'epoch': 0.96, 'step': 100}, {'eval_loss': 0.975238025188446, 'eval_accuracy': 0.5189340813464236, 'eval_precision': 0.5274871387836325, 'eval_recall': 0.5189340813464236, 'eval_f1': 0.46621729158769293, 'eval_runtime': 10.2653, 'eval_samples_per_second': 69.457, 'eval_steps_per_second': 2.241, 'epoch': 0.96, 'step': 100}, {'loss': 0.8798, 'learning_rate': 1.4230769230769232e-05, 'epoch': 1.44, 'step': 150}, {'eval_loss': 0.9592021703720093, 'eval_accuracy': 0.5357643758765779, 'eval_precision': 0.5309962507486822, 'eval_recall': 0.5357643758765779, 'eval_f1': 0.5269888585193522, 'eval_runtime': 10.4043, 'eval_samples_per_second': 68.529, 'eval_steps_per_second': 2.211, 'epoch': 1.44, 'step': 150}, {'loss': 0.8697, 'learning_rate': 1.230769230769231e-05, 'epoch': 1.92, 'step': 200}, {'eval_loss': 0.9478905200958252, 'eval_accuracy': 0.5511921458625526, 'eval_precision': 0.5478197356896632, 'eval_recall': 0.5511921458625526, 'eval_f1': 0.52735220228596, 'eval_runtime': 10.3313, 'eval_samples_per_second': 69.013, 'eval_steps_per_second': 2.226, 'epoch': 1.92, 'step': 200}, {'loss': 0.7569, 'learning_rate': 1.0384615384615386e-05, 'epoch': 2.4, 'step': 250}, {'eval_loss': 0.9672200679779053, 'eval_accuracy': 0.5455820476858345, 'eval_precision': 0.5475992198149047, 'eval_recall': 0.5455820476858345, 'eval_f1': 0.546128728480438, 'eval_runtime': 10.2831, 'eval_samples_per_second': 69.337, 'eval_steps_per_second': 2.237, 'epoch': 2.4, 'step': 250}, {'loss': 0.7015, 'learning_rate': 8.461538461538462e-06, 'epoch': 2.88, 'step': 300}, {'eval_loss': 0.9784459471702576, 'eval_accuracy': 0.5553997194950911, 'eval_precision': 0.5667964207548639, 'eval_recall': 0.5553997194950911, 'eval_f1': 0.5596710761969598, 'eval_runtime': 10.2568, 'eval_samples_per_second': 69.515, 'eval_steps_per_second': 2.242, 'epoch': 2.88, 'step': 300}, {'loss': 0.6527, 'learning_rate': 6.538461538461539e-06, 'epoch': 3.37, 'step': 350}, {'eval_loss': 0.9795928597450256, 'eval_accuracy': 0.5666199158485273, 'eval_precision': 0.5658344435188016, 'eval_recall': 0.5666199158485273, 'eval_f1': 0.5590763872482906, 'eval_runtime': 10.2656, 'eval_samples_per_second': 69.456, 'eval_steps_per_second': 2.241, 'epoch': 3.37, 'step': 350}, {'loss': 0.605, 'learning_rate': 4.615384615384616e-06, 'epoch': 3.85, 'step': 400}, {'eval_loss': 1.003848910331726, 'eval_accuracy': 0.5680224403927069, 'eval_precision': 0.5635731486719066, 'eval_recall': 0.5680224403927069, 'eval_f1': 0.5652186024559769, 'eval_runtime': 10.2543, 'eval_samples_per_second': 69.532, 'eval_steps_per_second': 2.243, 'epoch': 3.85, 'step': 400}, {'loss': 0.5422, 'learning_rate': 2.6923076923076923e-06, 'epoch': 4.33, 'step': 450}, {'eval_loss': 1.0112831592559814, 'eval_accuracy': 0.5792426367461431, 'eval_precision': 0.5694341157085048, 'eval_recall': 0.5792426367461431, 'eval_f1': 0.5716390426314638, 'eval_runtime': 10.2425, 'eval_samples_per_second': 69.612, 'eval_steps_per_second': 2.246, 'epoch': 4.33, 'step': 450}, {'loss': 0.5204, 'learning_rate': 7.692307692307694e-07, 'epoch': 4.81, 'step': 500}, {'eval_loss': 1.0347986221313477, 'eval_accuracy': 0.5582047685834503, 'eval_precision': 0.5648162660138563, 'eval_recall': 0.5582047685834503, 'eval_f1': 0.561077914198617, 'eval_runtime': 10.2391, 'eval_samples_per_second': 69.635, 'eval_steps_per_second': 2.246, 'epoch': 4.81, 'step': 500}, {'train_runtime': 743.065, 'train_samples_per_second': 22.374, 'train_steps_per_second': 0.7, 'total_flos': 1922282476931250.0, 'train_loss': 0.7473430175047654, 'epoch': 5.0, 'step': 520}]Confusion Matrix
+[[ 93  54  37]
+ [ 73 237  51]
+ [ 39  49  80]]
+Classification Report
+              precision    recall  f1-score   support
+
+        Hate       0.45      0.51      0.48       184
+     Neutral       0.70      0.66      0.68       361
+     Counter       0.48      0.48      0.48       168
+
+    accuracy                           0.58       713
+   macro avg       0.54      0.55      0.54       713
+weighted avg       0.58      0.58      0.58       713
